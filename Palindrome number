@@ -1,24 +1,78 @@
-class Solution(object):
-    def isPalindrome(self, x):
-        if x<0:
-            return False
-        return str(x)==str(x)[::-1]
+[Naive Approach] Using Temporary Array - O(n) Time and O(n) Space
+The idea is to use a temporary array of the same size, copy all non-zero elements into it, fill the remaining positions with zeros, and then copy the temporary array back to the original array.
+
+
+def pushZerosToEnd(arr):
+    n = len(arr)
+    temp = [0] * n
+
+    # to keep track of the index in temp[]
+    j = 0
+
+    # Copy non-zero elements to temp[]
+    for i in range(n):
+        if arr[i] != 0:
+            temp[j] = arr[i]
+            j += 1
+
+    # Fill remaining positions in temp[] with zeros
+    while j < n:
+        temp[j] = 0
+        j += 1
+
+    # Copy all the elements from temp[] to arr[]
+    for i in range(n):
+        arr[i] = temp[i]
+
+
+if __name__ == "__main__":
+    arr = [1, 2, 0, 4, 3, 0, 5, 0]
+    pushZerosToEnd(arr)
+
+    for num in arr:
+        print(num, end=" ")
 
 
 
 
 
 
-lass Solution:
-    def isPalindrome(self, x: int) -> bool:
-        if x < 0:
-            return False
+
+
+
+
+
+
+
+
+
+
+
+
+[Expected Approach] One Traversal-O(n) Time and O(1) space
+The idea is similar to the previous approach where we took a pointer, say count to track where the next non-zero element should be placed. However, on encountering a non-zero element, instead of directly placing the non-zero element at arr[count], we will swap the non-zero element with arr[count]. This will ensure that if there is any zero present at arr[count], it is pushed towards the end of array and is not overwritten.
+
+
+def pushZerosToEnd(arr):
+    
+    # Pointer to track the position
+    # for next non-zero element
+    count = 0
+    
+    for i in range(len(arr)):
         
-        rev = 0
-        num = x
-        
-        while num != 0:
-            rev = rev * 10 + num % 10
-            num = num // 10
-        
-        return rev == x
+        # If the current element is non-zero
+        if arr[i] != 0:
+            
+            # Swap the current element with
+            # the 0 at index 'count'
+            arr[i], arr[count] = arr[count], arr[i]
+            
+            # Move 'count' pointer to the next position
+            count += 1
+
+if __name__ == "__main__":
+    arr = [1, 2, 0, 4, 3, 0, 5, 0]
+    pushZerosToEnd(arr)
+    for num in arr:
+        print(num, end=" ")
