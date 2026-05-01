@@ -1,0 +1,57 @@
+[Naive Approach] Rotate one by one - O(n * d) Time and O(1) Space
+In each iteration, shift the elements by one position to the left in a circular fashion (the first element becomes the last). Perform this operation d times to rotate the elements to the left by d positions.
+
+
+def rotateArr(arr, d):
+    n = len(arr)
+  
+    # Repeat the rotation d times
+    for i in range(d):
+      
+        # Left rotate the array by one position
+        first = arr[0]
+        for j in range(n - 1):
+            arr[j] = arr[j + 1]
+        arr[n - 1] = first
+
+
+[Expected Approach 2] Using Reversal Algorithm - O(n) Time and O(1) Space
+The idea is based on the observation that if we left rotate the array by d positions, the last (n - d) elements will be at the front and the first d elements will be at the end. 
+
+Reverse the subarray containing the first d elements of the array.
+Reverse the subarray containing the last (n - d) elements of the array.
+Finally, reverse all the elements of the array.
+
+
+
+def rotateArr(arr, d):
+    n = len(arr)
+
+    # Handle the case where d > size of array
+    d %= n
+
+    # Reverse the first d elements
+    reverse(arr, 0, d - 1)
+
+    # Reverse the remaining n-d elements
+    reverse(arr, d, n - 1)
+
+    # Reverse the entire array
+    reverse(arr, 0, n - 1)
+
+# Function to reverse a portion of the array
+def reverse(arr, start, end):
+    while start < end:
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
+
+
+
+
+
+
+
+
+
+
