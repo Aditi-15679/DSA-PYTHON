@@ -1,0 +1,105 @@
+[Naive Approach] Generate All Permutations - O(n! * n) Time and O(n! * n) Space
+The idea is that we would first generate all possible permutations of a given array and sort them. Once sorted, we locate the current permutation within this list. The next permutation is simply the next arrangement in the sorted order. If the current arrangement is the last in the list then display the first permutation (smallest permutation).
+
+
+
+def generatePermutations(res, arr, idx):
+
+    # Base case: if idx reaches the end of array
+    if idx == len(arr) - 1:
+        res.append(arr[:])
+        return
+
+    # Generate all permutations by swapping
+    for i in range(idx, len(arr)):
+        arr[idx], arr[i] = arr[i], arr[idx]
+
+        # Recur for the next index
+        generatePermutations(res, arr, idx + 1)
+
+        # Backtrack to restore original array
+        arr[idx], arr[i] = arr[i], arr[idx]
+
+# Function to find the next permutation
+def nextPermutation(arr):
+
+    res = []
+
+    # Generate all permutations
+    generatePermutations(res, arr, 0)
+
+    # Sort all permutations lexicographically
+    res.sort()
+
+    # Find the current permutation index
+    for i in range(len(res)):
+
+        # If current permutation matches input
+        if res[i] == arr:
+
+            # If it's not the last permutation
+            if i < len(res) - 1:
+                arr[:] = res[i + 1]
+
+            # If it's the last permutation
+            else:
+                arr[:] = res[0]
+
+            break
+
+
+
+
+
+
+
+
+EXPECTED 
+
+Step-By-Step Approach:
+
+Iterate over the given array from end and find the first index (pivot) which doesn't follow property of non-increasing suffix, (i.e,  arr[i] < arr[i + 1]).
+If pivot index does not exist, then the given sequence in the array is the largest as possible. So, reverse the complete array. For example, for [3, 2, 1], the output would be [1, 2, 3]
+Otherwise, Iterate the array from the end and find for the successor (rightmost greater element) of pivot in suffix.
+Swap the pivot and successor
+Minimize the suffix part by reversing the array from pivot + 1 till n.
+
+
+
+
+def nextPermutation(arr):
+    n = len(arr)
+    
+    # Find the pivot index
+    pivot = -1
+    for i in range(n - 2, -1, -1):
+        if arr[i] < arr[i + 1]:
+            pivot = i
+            break
+    
+    # If pivot point does not exist, 
+    # reverse the whole array
+    if pivot == -1:
+        arr.reverse()
+        return
+
+    # Find the element from the right 
+    # that is greater than pivot
+    for i in range(n - 1, pivot, -1):
+        if arr[i] > arr[pivot]:
+            arr[i], arr[pivot] = arr[pivot], arr[i]
+            break
+
+    # Reverse the elements from pivot + 1 to the end in place
+    left, right = pivot + 1, n - 1
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
+
+
+
+
+
+
+
