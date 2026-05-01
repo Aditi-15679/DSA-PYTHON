@@ -1,6 +1,3 @@
-[Naive Approach] Using Temporary Array - O(n) Time and O(n) Space
-The idea is to use a temporary array of the same size, copy all non-zero elements into it, fill the remaining positions with zeros, and then copy the temporary array back to the original array.
-
 
 def pushZerosToEnd(arr):
     n = len(arr)
@@ -50,7 +47,7 @@ if __name__ == "__main__":
 
 
 [Expected Approach] One Traversal-O(n) Time and O(1) space
-The idea is similar to the previous approach where we took a pointer, say count to track where the next non-zero element should be placed. However, on encountering a non-zero element, instead of directly placing the non-zero element at arr[count], we will swap the non-zero element with arr[count]. This will ensure that if there is any zero present at arr[count], it is pushed towards the end of array and is not overwritten.
+
 
 
 def pushZerosToEnd(arr):
@@ -71,8 +68,3 @@ def pushZerosToEnd(arr):
             # Move 'count' pointer to the next position
             count += 1
 
-if __name__ == "__main__":
-    arr = [1, 2, 0, 4, 3, 0, 5, 0]
-    pushZerosToEnd(arr)
-    for num in arr:
-        print(num, end=" ")
