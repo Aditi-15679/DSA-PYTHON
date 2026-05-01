@@ -8,7 +8,6 @@ Finally, copy all the elements from temporary array back to the original array.
 
 
 
-
 def reverseArray(arr):
     n = len(arr)
     
