@@ -17,18 +17,6 @@ The goal is to build strong problem-solving skills by understanding both **Brute
 
 ## 📂 Folder Structure
 
-DSA-Python/
-│
-├── Arrays/
-│   ├── problem1.py
-│   ├── problem2.py
-│
-├── Sliding_Window/
-├── Two_Pointers/
-├── Strings/
-├── Recursion/
-└── More_Coming...
-
 ---
 
 ## 🧩 Problem Format
