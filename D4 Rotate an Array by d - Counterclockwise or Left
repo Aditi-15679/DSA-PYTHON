@@ -15,6 +15,7 @@ def rotateArr(arr, d):
         arr[n - 1] = first
 
 
+
 [Expected Approach 2] Using Reversal Algorithm - O(n) Time and O(1) Space
 The idea is based on the observation that if we left rotate the array by d positions, the last (n - d) elements will be at the front and the first d elements will be at the end. 
 
