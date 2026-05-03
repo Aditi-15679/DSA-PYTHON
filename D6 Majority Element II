@@ -92,7 +92,3 @@ def findMajority(arr):
         res[0], res[1] = res[1], res[0]
 
     return res
-
-
-
-
