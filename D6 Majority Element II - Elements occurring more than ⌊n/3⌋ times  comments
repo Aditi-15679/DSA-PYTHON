@@ -1,0 +1,98 @@
+naive 
+
+
+def findMajority(arr):
+    n = len(arr)
+    res = []
+
+    for i in range(n):
+        
+        # Count the frequency of arr[i]
+        cnt = 0
+        for j in range(i, n):
+            if arr[j] == arr[i]:
+                cnt += 1
+        
+        # Check if arr[i] is a majority element
+        if cnt > (n // 3):
+            
+            # Add arr[i] only if it is not already
+            # present in the result
+            if len(res) == 0 or arr[i] != res[0]:
+                res.append(arr[i])
+        
+        # If we have found two majority elements, 
+        # we can stop our search
+        if len(res) == 2:
+            if res[0] > res[1]:
+                res[0], res[1] = res[1], res[0]
+            break
+
+    return res
+
+
+
+
+
+
+optimal
+
+
+
+
+def findMajority(arr):
+    n = len(arr)
+
+    # Initialize two candidates and their counts
+    ele1, ele2 = -1, -1
+    cnt1, cnt2 = 0, 0
+
+    for ele in arr:
+        
+        # Increment count for candidate 1
+        if ele1 == ele:
+            cnt1 += 1
+            
+        # Increment count for candidate 2
+        elif ele2 == ele:
+            cnt2 += 1
+            
+        # New candidate 1 if count is zero
+        elif cnt1 == 0:
+            ele1 = ele
+            cnt1 += 1
+            
+        # New candidate 2 if count is zero
+        elif cnt2 == 0:
+            ele2 = ele
+            cnt2 += 1
+            
+        # Decrease counts if neither candidate
+        else:
+            cnt1 -= 1
+            cnt2 -= 1
+
+    res = []
+    cnt1, cnt2 = 0, 0
+
+    # Count the occurrences of candidates
+    for ele in arr:
+        if ele1 == ele:
+            cnt1 += 1
+        if ele2 == ele:
+            cnt2 += 1
+
+    # Add to result if they are majority elements
+    if cnt1 > n / 3:
+        res.append(ele1)
+    if cnt2 > n / 3 and ele1 != ele2:
+        res.append(ele2)
+
+    if len(res) == 2 and res[0] > res[1]:
+        res[0], res[1] = res[1], res[0]
+
+    return res
+
+
+
+
