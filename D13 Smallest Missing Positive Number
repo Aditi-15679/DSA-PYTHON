@@ -1,0 +1,111 @@
+def missingNumber(arr):
+    arr.sort()
+
+    # res will hold the current smallest missing number,
+    # initially set to 1
+    res = 1
+    for num in arr:
+
+        # If we have found 'res' in the array,
+        # 'res' is no longer missing, so increment it
+        if num == res:
+            res += 1
+
+        # If the current element is larger than 'res',
+        # 'res' cannot be found in the array,
+        # so it is our final answer
+        elif num > res:
+            break
+    return res
+
+
+
+OPTIMAL 
+
+
+
+def missingNumber(arr):
+    n = len(arr)
+    flag = False
+
+    # Check if 1 is present in array or not
+    for i in range(n):
+        if arr[i] == 1:
+            flag = True
+            break
+
+    # If 1 is not present
+    if not flag:
+        return 1
+
+    # Change out of range values to 1
+    for i in range(n):
+        if arr[i] <= 0 or arr[i] > n:
+            arr[i] = 1
+
+    # Mark the occurrence of numbers 
+    # directly within the same array
+    for i in range(n):
+        arr[(arr[i] - 1) % n] += n
+
+    # Finding which index has value less than n
+    for i in range(n):
+        if arr[i] <= n:
+            return i + 1
+
+    # If array has values from 1 to n
+    return n + 1
+
+
+
+
+
+
+
+
+
+
+
+
+def partition(arr):
+    pivotIdx = 0
+    n = len(arr)
+
+    for i in range(n):
+        
+        # Move positive elements to the left
+        if arr[i] > 0:
+            arr[i], arr[pivotIdx] = arr[pivotIdx], arr[i]
+            pivotIdx += 1
+
+    # return index of the first non-positive number
+    return pivotIdx
+
+def missingNumber(arr):
+    k = partition(arr)
+
+    # Traverse the positive part of the array
+    for i in range(k):
+        
+        # Find the absolute value to get the original number
+        val = abs(arr[i])
+
+        # If val is within range, then mark the element at
+        # index val-1 to negative
+        if val - 1 < k and arr[val - 1] > 0:
+            arr[val - 1] = -arr[val - 1]
+
+    # Find first unmarked index
+    for i in range(k):
+        if arr[i] > 0:
+            return i + 1
+
+    # If all numbers from 1 to k are marked
+    # then missing number is k + 1
+    return k + 1
+
+
+
+
+
+
